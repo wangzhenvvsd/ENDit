@@ -4,65 +4,63 @@
         <div class="scoller">
             <div class="scoll-box">
                 <div v-for="(item, index) in scollList" :key="index">
-                    <div class="view-scoll">{{ item.csname }}</div>
+                    <div :class="chouseSwiper == index ? 'view-scoll-ac':'view-scoll'" @click="chouse(index)">{{ item.csname }}</div>
                 </div>
             </div>
         </div>
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">Slide 1</div>
-                <div class="swiper-slide">Slide 2</div>
-                <div class="swiper-slide">Slide 3</div>
+                <div :class="chouseSwiper == index ? 'swiper-slide swiper-slide-active':'swiper-slide'"  v-for="(item,index) in scollList" :key="index">
+                    <homestyleA v-if="item.style == 'A'"></homestyleA>
+                    <homestyleB v-if="item.style == 'B'"></homestyleB>
+                    {{ index }}
+                    
+                </div>
             </div>
-            <!-- 如果需要分页器 -->
-            <div class="swiper-pagination"></div>
-
-            <!-- 如果需要导航按钮
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div> -->
-
-            <!-- 如果需要滚动条 -->
-            <div class="swiper-scrollbar"></div>
+            
         </div>
 
 
-
-        <InHome></InHome>
+        
     </div>
 </template>
 
 <script>
 import Swiper from "swiper"
 import 'swiper/css/swiper.min.css'
+import homestyleA from '@/components/HomePageStyleA.vue'
+import homestyleB from '@/components/HomePageStyleB.vue'
 
-import InHome from '@/components/HomePage/InHome.vue'
 export default {
     name: "HomePage",
     data() {
         return {
+            //swiper选中
+            chouseSwiper:0,
+            //顶栏数据
             scollList: [
-                { csid: 1, csname: "推荐" },
-                { csid: 2, csname: "鞋包" },
-                { csid: 3, csname: "食品" },
-                { csid: 4, csname: "内衣" },
-                { csid: 5, csname: "手机" },
-                { csid: 6, csname: "男装" },
-                { csid: 7, csname: "电脑" },
-                { csid: 8, csname: "运动" },
-                { csid: 9, csname: "女装" },
-                { csid: 10, csname: "医药" },
-                { csid: 11, csname: "饰品" },
-                { csid: 12, csname: "百货" },
-                { csid: 13, csname: "美妆" },
-                { csid: 14, csname: "电器" },
-                { csid: 15, csname: "母婴" },
-                { csid: 16, csname: "家纺" },
-                { csid: 17, csname: "海淘" },
-                { csid: 18, csname: "家具" },
-                { csid: 19, csname: "家装" },
-                { csid: 20, csname: "车品" },
-                { csid: 21, csname: "水果" },
-                { csid: 22, csname: "玩乐" },
+                { csid: 0, csname: "推荐", style:"A" },
+                { csid: 1, csname: "鞋包", style:"B" },
+                { csid: 2, csname: "食品", style:"B" },
+                { csid: 3, csname: "内衣", style:"B" },
+                { csid: 4, csname: "手机", style:"B" },
+                { csid: 5, csname: "男装", style:"B" },
+                { csid: 6, csname: "电脑", style:"B" },
+                { csid: 7, csname: "运动", style:"B" },
+                { csid: 8, csname: "女装", style:"B" },
+                { csid: 9, csname: "医药", style:"B" },
+                { csid: 10, csname: "饰品", style:"B" },
+                { csid: 11, csname: "百货", style:"B" },
+                { csid: 12, csname: "美妆", style:"B" },
+                { csid: 13, csname: "电器", style:"B" },
+                { csid: 14, csname: "母婴", style:"B" },
+                { csid: 15, csname: "家纺", style:"B" },
+                { csid: 16, csname: "海淘", style:"B" },
+                { csid: 17, csname: "家具", style:"B" },
+                { csid: 18, csname: "家装", style:"B" },
+                { csid: 19, csname: "车品", style:"B" },
+                { csid: 20, csname: "水果", style:"B" },
+                { csid: 21, csname: "玩乐", style:"B" },
             ],
             input: ""
         };
@@ -70,27 +68,21 @@ export default {
     mounted() {
         new Swiper('.swiper-container', {
             // direction: 'vertical', // 垂直切换选项
-            loop: true, // 循环模式选项
-
-            // 如果需要分页器
-            pagination: {
-                el: '.swiper-pagination',
-            },
-
-            // 如果需要前进后退按钮
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-
-            // 如果需要滚动条
-            scrollbar: {
-                el: '.swiper-scrollbar',
-            },
+            loop: false, // 循环模式选项            
         })
+        
+        
+    },
+    methods:{
+            chouse (chouseid){
+                this.chouseSwiper = chouseid
+                console.log(this.chouseSwiper)
+                
+            }
     },
     components: {
-        InHome
+        homestyleA,
+        homestyleB
     }
 }
 </script>
@@ -121,9 +113,19 @@ export default {
     border-radius: 2px;
     background-color: rgb(223, 223, 223);
 }
+.view-scoll-ac {
+    margin: 0 5px;
+    width: 3rem;
+    text-align: center;
+    border-radius: 2px;
+    background-color:red;
+}
 
 .swiper-container {
     width: 100%;
     height: 100%;
+}
+.swiper-slide{
+    width: 100%;
 }
 </style>

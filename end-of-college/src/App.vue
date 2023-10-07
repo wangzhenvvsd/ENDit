@@ -8,6 +8,7 @@
 <script>
 import TabBar from '@/components/TabBar.vue'
 
+
 export default {
   name: 'App',
   components: {
@@ -17,9 +18,8 @@ export default {
 </script>
 
 <style>
-*{
+* {
   margin: 0;
   padding: 0;
 }
-
 </style>
